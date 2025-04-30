@@ -1,7 +1,7 @@
 import streamlit
 import pandas as pd
 from utils import parse_experience_list
-
+streamlit.set_page_config(layout="wide")
 streamlit.title("Review the parsed data")
 if 'data' not in streamlit.session_state:
     streamlit.write("We were unable to parse your resume :(")
