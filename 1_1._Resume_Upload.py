@@ -1,4 +1,5 @@
 import streamlit
+from PyPDF2 import PdfReader
 from pyresparser import ResumeParser
 from streamlit_pdf_viewer import pdf_viewer
 
@@ -19,6 +20,10 @@ if 'uploaded' in streamlit.session_state and streamlit.session_state['uploaded']
 
 if resume_upload is not None:
     data = ResumeParser(resume_upload).get_extracted_data()
+    reader = PdfReader(resume_upload)
+    page = reader.pages[0]
+    pdfText = page.extract_text()
+    streamlit.session_state['raw'] = pdfText
     streamlit.session_state['data'] = data
     streamlit.session_state['uploaded'] = resume_upload
     try:
